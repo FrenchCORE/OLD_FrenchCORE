@@ -11612,28 +11612,23 @@ uint32 Unit::SpellDamageBonus(Unit *pVictim, SpellEntry const *spellProto,
 						+ (*i)->GetAmount()) / 100.0f;
 				break;
 			}
-				// Soul Siphon
+			// Siphon d'âme
 			case 4992:
 			case 4993:
 			{
 				// effect 1 m_amount
 				int32 maxPercent = (*i)->GetAmount();
 				// effect 0 m_amount
-				int32 stepPercent = CalculateSpellDamage(this,
-						(*i)->GetSpellProto(), 0);
+				int32 stepPercent = CalculateSpellDamage(this, (*i)->GetSpellProto(), 0);
 				// count affliction effects and calc additional damage in percentage
 				int32 modPercent = 0;
-				AuraApplicationMap const &victimAuras =
-						pVictim->GetAppliedAuras();
-				for (AuraApplicationMap::const_iterator itr =
-						victimAuras.begin(); itr != victimAuras.end(); ++itr)
+				AuraApplicationMap const &victimAuras = pVictim->GetAppliedAuras();
+				for (AuraApplicationMap::const_iterator itr = victimAuras.begin(); itr != victimAuras.end(); ++itr)
 				{
 					Aura const * aura = itr->second->GetBase();
 					SpellEntry const *m_spell = aura->GetSpellProto();
-					if (m_spell->SpellFamilyName != SPELLFAMILY_WARLOCK
-							|| !(m_spell->SpellFamilyFlags [1] & 0x0004071B
-									|| m_spell->SpellFamilyFlags [0]
-											& 0x8044C402)) continue;
+					if (m_spell->SpellFamilyName != SPELLFAMILY_WARLOCK || !(m_spell->SpellFamilyFlags[0] & 0x4008))
+						continue;
 					modPercent += stepPercent * aura->GetStackAmount();
 					if (modPercent >= maxPercent)
 					{
