@@ -12535,7 +12535,23 @@ uint32 Unit::SpellHealingBonus(Unit *pVictim, SpellEntry const *spellProto,
 	{
 		healamount = 0.45 * (GetMaxHealth() - 10 * (STAT_STAMINA - 180));
 		return healamount;
-	}
+	} 
+    if (spellProto->Id == 85673)    // Mot de gloire
+    { 
+        uint32 am = GetPower(POWER_HOLY_POWER); 
+        am = am > 0 ? am : 1;       // Proc
+		healamount = (((spellProto->EffectBasePoints[0] + spellProto->EffectBasePoints[0] / 2) + 0.198 * GetTotalAttackPowerValue(BASE_ATTACK))) * am; 
+	
+		uint32 chance = 0; 
+		if (HasAura(87163))   		// Gloire éternelle rang 1 
+			chance = 15; 
+        else if (HasAura(87164))	// Gloire éternelle rang 2 
+            chance = 30; 
+ 
+        if(!roll_chance_i(chance)) 
+            SetPower(POWER_HOLY_POWER, 0); 
+    }
+	
 	// Healing Done
 	// Taken/Done total percent damage auras
 	float DoneTotalMod = 1.0f;
