@@ -372,7 +372,7 @@ public:
 		return new spell_warl_shadow_bite_SpellScript();
 	}
 };
-//DrainLife fix: thnks to rebase. fixed by wlasser
+// Drain de vie ID: 689 / 89420
 class spell_warl_drain_life: public SpellScriptLoader {
 public:
 	spell_warl_drain_life() :
@@ -442,41 +442,6 @@ class spell_warl_fear : public SpellScriptLoader
         }
 };
 
-// 
-// Drain de vie ID: 689 / 89420
-class spell_warl_drain_life : public SpellScriptLoader
-{
-public:
-    spell_warl_drain_life() : SpellScriptLoader("spell_warl_drain_life") { }
-
-    class spell_warl_drain_life_AuraScript : public AuraScript
-    {
-        PrepareAuraScript(spell_warl_drain_life_AuraScript);
-       
-        void OnPeriodic(AuraEffect const* /*aurEff*/)
-        {
-            int32 bp = 2; // Normal, restauration 2% de vie
-
-            // Vérification pour for Caresse de la mort
-            if(AuraEffect const* aurEff = GetCaster()->GetAuraEffect(SPELL_AURA_DUMMY, SPELLFAMILY_WARLOCK, 3223, 0))
-                if(GetCaster()->HealthBelowPct(25))
-                    bp += int32(aurEff->GetAmount());
-
-            GetCaster()->CastCustomSpell(GetCaster(), 89653, &bp, NULL, NULL, true);
-        }
-
-        void Register()
-        {
-            OnEffectPeriodic += AuraEffectPeriodicFn(spell_warl_drain_life_AuraScript::OnPeriodic, EFFECT_0, SPELL_AURA_PERIODIC_DAMAGE);
-        }
-    };
-
-    AuraScript* GetAuraScript() const
-    {
-        return new spell_warl_drain_life_AuraScript();
-    }
-};
-
 void AddSC_warlock_spell_scripts() {
 	new spell_warl_demonic_empowerment();
 	new spell_warl_everlasting_affliction();
@@ -488,5 +453,4 @@ void AddSC_warlock_spell_scripts() {
 	new spell_warl_shadow_bite();
 	new spell_warl_drain_life();
     new spell_warl_fear(); 
-    new spell_warl_drain_life(); 
 }
