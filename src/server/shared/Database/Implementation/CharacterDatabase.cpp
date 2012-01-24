@@ -470,6 +470,8 @@ void CharacterDatabaseConnection::DoPrepareStatements() {
 			"UPDATE guild SET xp = ?, level = ? WHERE guildid = ?",
 			CONNECTION_ASYNC);
 	// 1: uint64, 2, 3: uint32
+	PREPARE_STATEMENT(CHAR_LOAD_GUILD_NEWS, "SELECT type, date, value1, value2, source_guid, flags FROM guild_news WHERE guildid = ? ORDER BY date DESC", CONNECTION_SYNCH); 
+    PREPARE_STATEMENT(CHAR_ADD_GUILD_NEWS, "INSERT INTO guild_news (guildid, type, date, value1, value2, source_guid, flags) VALUES (?, ?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC); 
 	// 0-5: uint32
 	PREPARE_STATEMENT(
 			CHAR_SET_GUILD_EMBLEM_INFO,

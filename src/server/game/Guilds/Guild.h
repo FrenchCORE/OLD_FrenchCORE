@@ -31,6 +31,26 @@
 
 class Item;
 
+enum sGuildNews 
+{ 
+    GUILD_NEWS_GUILD_ACHIEVENT_EARNED = 1, 
+    GUILD_NEWS_MEMBER_ACHIEVEMENT_EARNED, 
+    GUILD_NEWS_EPIC_ITEM_LOOTED, 
+    GUILD_NEWS_EPIC_ITEM_CRAFTED, 
+    GUILD_NEWS_EPIC_ITEM_PURCHASED, 
+    GUILD_NEWS_GUILD_LEVEL_REACHED, 
+}; 
+ 
+struct GuildNews 
+{ 
+    uint32 m_type; 
+    uint64 m_timestamp; 
+    uint32 m_value1; 
+    uint32 m_value2; 
+    uint64 m_source_guid; 
+    uint32 m_flags; 
+};  
+ 
 enum GuildMisc {
 	GUILD_BANK_MAX_TABS = 8, // send by client for money log also
 	GUILD_BANK_MAX_SLOTS = 98,
@@ -414,6 +434,8 @@ private:
 		Profession professions[2];
 	};
 
+	typedef UNORDERED_MAP<uint32, GuildNews*> sGuildNews;
+
 	// Base class for event entries
 	class LogEntry {
 	public:
@@ -760,6 +782,7 @@ private:
 	typedef UNORDERED_MAP<uint32, Member*> Members;
 	typedef std::vector<RankInfo> Ranks;
 	typedef std::vector<BankTab*> BankTabs;
+	typedef std::list<GuildNews> GuildNewsList;
 
 public:
 	static void SendCommandResult(WorldSession* session, GuildCommandType type, GuildCommandError errCode, const std::string& param = "");
@@ -801,6 +824,8 @@ public:
 	bool HandleMemberWithdrawMoney(WorldSession* session, uint32 amount, bool repair = false);
 	void HandleMemberLogout(WorldSession* session);
 	void HandleDisband(WorldSession* session);
+	
+	void SetGuildNews(WorldPacket &data);
 
 	void UpdateMemberData(Player* plr, uint8 dataid, uint32 value);
 	void OnPlayerStatusChange(Player* plr, uint32 flag, bool state);
@@ -867,6 +892,7 @@ public:
 	void GainXP(uint64 xp);
 	void LevelUp();
 
+	void AddGuildNews(uint32 type, uint64 source_guild, int value1, int value2, int flags = 0);
 protected:
 	uint32 m_id;
 	std::string m_name;
@@ -887,6 +913,8 @@ protected:
 	Members m_members;
 	BankTabs m_bankTabs;
 
+	GuildNewsList m_guild_news;
+	
 	uint32 m_lastXPSave;
 
 	// These are actually ordered lists. The first element is the oldest entry.
