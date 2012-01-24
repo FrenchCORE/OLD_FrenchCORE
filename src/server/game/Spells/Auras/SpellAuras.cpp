@@ -1150,29 +1150,21 @@ void Aura::HandleAuraSpecificMods(AuraApplication const* aurApp, Unit* caster, b
 					rec->RefreshDuration();
 			}
 			break;
-		case SPELLFAMILY_PALADIN: // Speed of Light (talent)
-			if (GetId() == 82327) {
-				if (target->HasAura(85495)) // r1
-						{
-					target->CastSpell(target, 85497, true);
-					target->SetSpeed(MOVE_RUN, 1.2f, true);
-				}
-				if (target->HasAura(85498)) // r2
-						{
-					target->CastSpell(target, 85497, true);
-					target->SetSpeed(MOVE_RUN, 1.4f, true);
-				}
-				if (target->HasAura(85499)) // r3
-						{
-					target->CastSpell(target, 85497, true);
-					target->SetSpeed(MOVE_RUN, 1.6f, true);
+		case SPELLFAMILY_PALADIN: // Radiance sacrée
+			if (GetId() == 82327)
+			{
+				if (AuraEffect * aurEff = caster->GetDummyAuraEffect(SPELLFAMILY_PALADIN, 5062, EFFECT_1))
+				{
+					int32 basepoints0 = aurEff->GetAmount(); 
+                    caster->CastCustomSpell(caster, 85497, &basepoints0, NULL, NULL, true); 
 				}
 			}
-			// Sanctfied Wrath Cataclysm proc
+			// Courroux sanctifié
 			if (GetId() == 31884)
-				if (caster->HasAura(53375) || caster->HasAura(53376)
-						|| caster->HasAura(90286))
+			{
+				if(caster->GetAuraEffect(SPELL_AURA_ADD_FLAT_MODIFIER, SPELLFAMILY_PALADIN, 3029, EFFECT_1))
 					caster->CastSpell(caster, 57318, true);
+			}
 			break;
 		case SPELLFAMILY_DEATHKNIGHT:
 			if (!caster)
