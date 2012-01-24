@@ -115,16 +115,24 @@ Map* MapInstanced::CreateInstance(const uint32 mapId, Player * player) {
 	Map* map = NULL;
 	uint32 NewInstanceId = 0; // instanceId of the resulting map
 
-	if (IsBattlegroundOrArena()) {
+	if (IsBattlegroundOrArena())
+	{
 		// instantiate or find existing bg map for player
 		// the instance id is set in battlegroundid
 		NewInstanceId = player->GetBattlegroundId();
 		if (!NewInstanceId)
 			return NULL;
 		map = _FindMap(NewInstanceId);
-		if (!map)
-            if (Battleground* NewBattleground = player->GetBattleground())
-			    map = CreateBattleground(NewInstanceId, NewBattleground);
+        if (!map)
+        {
+			if (Battleground* bg = player->GetBattleground())
+				map = CreateBattleground(NewInstanceId, bg);
+			else
+			{
+				player->TeleportToBGEntryPoint();
+				return NULL;
+			}
+        }
 	} else {
 		InstancePlayerBind *pBind = player->GetBoundInstance(GetId(),
 				player->GetDifficulty(IsRaid()));
