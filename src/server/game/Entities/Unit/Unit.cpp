@@ -9097,7 +9097,7 @@ bool Unit::HandleProcTriggerSpell(Unit *pVictim, uint32 damage,
                     basepoints0 = int32(CountPctFromMaxHealth(triggerAmount)); 
                 } 
 				// Drain Soul
-				if (auraSpellInfo->SpellFamilyFlags [0] & 0x4000)
+				else if (auraSpellInfo->SpellFamilyFlags [0] & 0x4000)
 				{
 					// Improved Drain Soul
 					Unit::AuraEffectList const& mAddFlatModifier =
