@@ -3844,6 +3844,8 @@ void SpellMgr::LoadSpellCustomAttr() {
 		}
 
 		switch (i) {
+        case 23881: // Sanguinaire
+			spellInfo->EffectImplicitTargetA[1] = TARGET_UNIT_CASTER;
 		case 77515: // Mastery: Dreadblade
 			spellInfo->EffectBasePoints[0] = 20;
 			count++;
