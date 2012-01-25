@@ -845,6 +845,7 @@ public:
 
 	// Load from DB
 	bool LoadFromDB(Field* fields);
+	void LoadGuildNewsFromDB(Field* fields);
 	bool LoadRankFromDB(Field* fields);
 	bool LoadMemberFromDB(Field* fields);
 	bool LoadEventLogFromDB(Field* fields);

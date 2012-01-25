@@ -979,16 +979,3 @@ void WorldSession::HandleGroupSetRoles(WorldPacket &recv_data) {
 		sLFGMgr->UpdateRoleCheck(gguid, guid, roles);
 	}
 }
-
-void WorldSession::HandleGuildQueryNews(WorldPacket &recv_data) 
-{ 
-    sLog->outDebug(LOG_FILTER_GUILD, "WORLD: Received CMSG_GUILD_QUERY_NEWS"); 
- 
-    // Sending guild news 
-    if (Guild* pGuild = _GetPlayerGuild(this)) 
-    { 
-        WorldPacket data(SMSG_GUILD_NEWS_UPDATE, 4); 
-        pGuild->SetGuildNews(data); 
-        SendPacket(&data); 
-    } 
-} 
