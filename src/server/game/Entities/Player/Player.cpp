@@ -17386,7 +17386,7 @@ bool Player::_LoadFromDB(uint32 guid, SQLQueryHolder * holder,
 	}
 
 	// if the player is in an instance and it has been reset in the meantime teleport him to the entrance
-	if (instanceId && !sInstanceSaveMgr->GetInstanceSave(instanceId) && !map->IsBattlegroundOrArena())) {
+	if (instanceId && !sInstanceSaveMgr->GetInstanceSave(instanceId) && !map->IsBattlegroundOrArena()) {
 		AreaTrigger const* at = sObjectMgr->GetMapEntranceTrigger(mapId);
 		if (at)
 			Relocate(at->target_X, at->target_Y, at->target_Z,
