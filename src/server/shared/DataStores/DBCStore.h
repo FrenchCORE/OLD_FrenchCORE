@@ -274,6 +274,10 @@ public:
 		indexTable = NULL;
 		delete[] ((char*) m_dataTable);
 		m_dataTable = NULL;
+		for (typename DataTableEx::const_iterator itr = dataTableEx.begin(); itr != dataTableEx.end(); ++itr)
+			delete *itr;
+
+		dataTableEx.clear();
 
 		while (!m_stringPoolList.empty()) {
 			delete[] m_stringPoolList.front();
