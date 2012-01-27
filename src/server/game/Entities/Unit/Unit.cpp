@@ -17689,6 +17689,8 @@ bool Unit::SetCharmedBy(Unit* charmer, CharmType type,
 	if (GetTypeId() == TYPEID_UNIT)
 	{
 		this->ToCreature()->AI()->OnCharmed(true);
+        GetMotionMaster()->Clear(false); 
+        StopMoving(); 
 		GetMotionMaster()->MoveIdle();
 	}
 	else
