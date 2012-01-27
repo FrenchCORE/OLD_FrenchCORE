@@ -188,8 +188,10 @@ void GuildMgr::LoadGuilds() {
 								"BankResetTimeTab0, BankRemSlotsTab0, BankResetTimeTab1, BankRemSlotsTab1, BankResetTimeTab2, BankRemSlotsTab2, "
 								//   13                 14                15                 16                17                 18
 								"BankResetTimeTab3, BankRemSlotsTab3, BankResetTimeTab4, BankRemSlotsTab4, BankResetTimeTab5, BankRemSlotsTab5, "
-								//   19      20       21       22      23         24
-								"c.name, c.level, c.class, c.zone, c.account, c.logout_time "
+								//   13                 14                15                 16                17                 18                 19
+								"BankResetTimeTab3, BankRemSlotsTab3, BankResetTimeTab4, BankRemSlotsTab4, BankResetTimeTab5, BankRemSlotsTab5, achievementPoints "
+								//   20      21       22       23      24         25               26               27              28               29                30                31
+								"c.name, c.level, c.class, c.zone, c.account, c.logout_time, FirstProffLevel, FirstProffSkill, FirstProffRank, SecondProffLevel, SecondProffSkill, SecondProffRank " 
 								"FROM guild_member gm LEFT JOIN characters c ON c.guid = gm.guid ORDER BY guildid ASC");
 
 		if (!result) {
