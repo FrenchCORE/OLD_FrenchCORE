@@ -524,7 +524,7 @@ void Guild::Member::SetStats(Player* player) {
         if(count_prof >= 2)
             break;
     
-        SpellInfo const *spellInfo = sSpellMgr->GetSpellInfo(spellIter->first);
+        const SpellInfo* spellInfo = sSpellMgr->GetSpellInfo(spellIter->first);
             if (!spellInfo)
                 continue;
 

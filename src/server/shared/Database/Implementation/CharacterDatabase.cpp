@@ -345,7 +345,6 @@ void CharacterDatabaseConnection::DoPrepareStatements() {
 	PREPARE_STATEMENT(
 			CHAR_ADD_GUILD_MEMBER,
 			"INSERT INTO guild_member (guildid, guid, rank, pnote, offnote, FirstProffLevel, FirstProffSkill, FirstProffRank, SecondProffLevel, SecondProffSkill, SecondProffRank) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", CONNECTION_ASYNC)
-			CONNECTION_ASYNC);
 	PREPARE_STATEMENT(CHAR_DEL_GUILD_MEMBER,
 			"DELETE FROM guild_member WHERE guid = ?", CONNECTION_ASYNC);
 	// 0: uint32
