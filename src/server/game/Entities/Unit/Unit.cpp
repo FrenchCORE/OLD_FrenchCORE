@@ -17188,7 +17188,7 @@ void Unit::Kill(Unit *pVictim, bool durabilityLoss)
 				data2 << uint64(creature->GetGUID());
 				data2 << uint8(0); // unk1
 				data2 << uint8(0); // no group looter
-				player->SendMessageToSet(&data2, true);
+				player->SendMessageToSet(&data2, false);
 			}
 		}
 

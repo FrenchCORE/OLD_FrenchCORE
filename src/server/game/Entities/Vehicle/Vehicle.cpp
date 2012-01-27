@@ -429,6 +429,14 @@ void Vehicle::RemovePassenger(Unit *unit)
 			m_bonusHP = 0;
 		}
 	}
+	
+    if (_me->IsInWorld())
+    {        
+        unit->RemoveUnitMovementFlag(MOVEMENTFLAG_ONTRANSPORT);
+        unit->_movementInfo.t_pos.Relocate(0, 0, 0, 0);
+        unit->_movementInfo.t_time = 0;
+        unit->_movementInfo.t_seat = 0;
+    }
 
 	if (me->GetTypeId() == TYPEID_UNIT && me->ToCreature()->IsAIEnabled) me->ToCreature()->AI()->PassengerBoarded(
 			unit, seat->first, false);
