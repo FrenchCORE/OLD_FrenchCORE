@@ -51,7 +51,7 @@ void WorldSession::HandleArenaTeamCreate(WorldPacket & recv_data) {
 	}
 
 	// register team and add captain
-	sObjectMgr->AddArenaTeam(at);
+	sArenaTeamMgr->AddArenaTeam(at);
 }
 
 void WorldSession::HandleInspectArenaTeamsOpcode(WorldPacket & recvData) {
