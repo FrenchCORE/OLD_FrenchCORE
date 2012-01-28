@@ -4221,11 +4221,11 @@ void Player::removeSpell(uint32 spell_id, bool disabled, bool learn_low_rank) {
 		SetCanTitanGrip(false);
     if (m_canDualWield) 
     { 
-        SpellInfo const* spellInfo = sSpellMgr->GetSpellInfo(spell_id); 
-        if (spellInfo->IsPassive()) 
+        SpellEntry const* spellInfo = sSpellStore.LookupEntry(spell_id);
+        if (IsPassiveSpell(spell_id)) 
         { 
             for (int i = 0; i < MAX_SPELL_EFFECTS; ++i) 
-                if (spellInfo->Effects[i].Effect == SPELL_EFFECT_DUAL_WIELD) 
+                if (spellInfo->Effect[i] == SPELL_EFFECT_DUAL_WIELD) 
                 { 
                     SetCanDualWield(false); 
                     break; 
